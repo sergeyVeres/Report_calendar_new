@@ -1,0 +1,64 @@
+<!doctype html>
+{% load static %}
+<html>
+    <head>
+        <title>{% block title %} Default title {% endblock %}</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <style>
+            .btn {
+            display: inline-block;
+            background: #8C959D;
+            color: #fff;
+            padding: 1rem 1.5rem;
+            text-decoration: none;
+            border-radius: 3px;
+            }
+            table, td, th {
+            border: 3px solid #245488;
+            }
+            td, th {
+            padding: 10px 20px;
+            }
+            th {
+            background: #8C959D;
+            }
+            tr[data-status='1'] {
+            background-color: #86d989;
+            }
+            tr[data-status='2']{
+            background-color: #eb7575;
+            }
+            tr[data-status='3']{
+            background-color: #dfebeb;
+            }
+
+        </style>
+    </head>
+
+
+    <body>
+        <div class="sidenav">
+            Account: {{ request.user }} <br>
+            <a href="/logout/" class="btn"> Logout </a>
+        </div>
+
+        <div id="content" name="content">
+            <div style="width:80%;max-width:800px;padding: 10px 50px 30px 10px;">
+                {% block content %}
+                    Default content
+                {% endblock %}
+            </div>
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+            {% block scrypts %}
+            {% endblock %}
+        </div>
+
+    </body>
+</html>

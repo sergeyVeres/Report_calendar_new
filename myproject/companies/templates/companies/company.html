@@ -1,0 +1,21 @@
+{% extends 'companies/base.html' %}
+
+{% block title %}
+{{request.user}}
+{% endblock %}
+
+{% block content %}
+<h1> My Companies </h1> <br>
+    {% for company in company%}
+        <a href="/companies/{{company.id}}/redact" class="btn"> {{company.name}} </a>
+
+        <a href="/companies/{{company.id}}/reports" class="btn"> Посмотреть список отчетов </a>
+
+        <a href="/companies/{{company.id}}/delete" class="btn"> Delete company </a>
+
+        <br> <br>
+    {% endfor %}
+<br>
+<a href="/companies/new_company" class="btn"> Add company </a>
+
+{% endblock %}

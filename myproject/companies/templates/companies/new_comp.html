@@ -1,0 +1,20 @@
+{% extends 'companies/base.html' %}
+
+
+{% block title %}
+New company
+{% endblock %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<h1> Adding new company </h1>
+
+<form method="post" class="form_group">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-success"> ADD </button>
+    <br>
+    {{ error }}
+</form>
+{% endblock %}

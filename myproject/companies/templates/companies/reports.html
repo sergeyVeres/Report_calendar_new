@@ -1,0 +1,101 @@
+{% extends 'companies/base.html' %}
+
+{% block title %}
+{{request.user}}
+{% endblock %}
+
+{% block content %}
+
+
+    {% for company in company%}
+
+        <a href="http://127.0.0.1:8000/companies/"> COMPANY: </a> {{company.name}} <br>
+
+        <select>
+            <option value="0">Все отчеты</option>
+            <option value="1">Сданные отчеты</option>
+            <option value="2">Просроченные отчеты</option>
+            <option value="3">Несданные отчеты</option>
+        </select> <br> <br>
+
+        <table id="table" class="styled">
+
+
+          <thead>
+              <tr class="0">
+                  <th>{{report.verbose_name}}</th>
+                  <th>{{period.verbose_name}}</th>
+                  <th>{{deadline.verbose_name}}</th>
+                  <th>{{done.verbose_name}}</th>
+                  <th>{{comment.verbose_name}}</th>
+                  <th> </th>
+              </tr>
+          </thead>
+          <tbody>
+
+            {% for report in company.report_set.all %}
+
+            {% if report.done %}
+              <tr data-status="1" class="1">
+                  <td> <a href="/companies/{{company.id}}/reports/{{report.id}}/redact_report"> {{report.report_name}} </a> </td>
+                  <td>{{report.period}} {{report.year}}</td>
+                  <td>{{report.deadline|date:"d.m.Y"}}</td>
+                  <td> <input type="checkbox" class="check" data-id="{{report.id}}" {% if report.done %} checked {%endif %}></td>
+                  <td>{{report.comment}}</td>
+                  <td> <a href="/companies/{{company.id}}/reports/{{report.id}}/delete_report" class="btn"> Del </a> </td>
+              </tr>
+            {% elif report.deadline_status %}
+                <tr class="2" data-status="2">
+                  <td> <a href="/companies/{{company.id}}/reports/{{report.id}}/redact_report"> {{report.report_name}} </a> </td>
+                  <td>{{report.period}} {{report.year}}</td>
+                  <td>{{report.deadline|date:"d.m.Y"}}</td>
+                  <td> <input type="checkbox" class="check" data-id="{{report.id}}" {% if report.done %} checked {%endif %}></td>
+                  <td>{{report.comment}}</td>
+                  <td> <a href="/companies/{{company.id}}/reports/{{report.id}}/delete_report" class="btn"> Del </a> </td>
+                </tr>
+            {% else %}
+                <tr data-status="3" class="3">
+                  <td> <a href="/companies/{{company.id}}/reports/{{report.id}}/redact_report"> {{report.report_name}} </a> </td>
+                  <td>{{report.period}} {{report.year}}</td>
+                  <td>{{report.deadline|date:"d.m.Y"}}</td>
+                  <td> <input type="checkbox" class="check" data-id="{{report.id}}" {% if report.done %} checked {%endif %}></td>
+                  <td>{{report.comment}}</td>
+                  <td> <a href="/companies/{{company.id}}/reports/{{report.id}}/delete_report" class="btn"> Del </a> </td>
+                </tr>
+            {% endif %}
+            {% endfor %}
+
+            <script>
+                var table, tr, td, value;
+                table = document.getElementById('table');
+                tr = table.getElementsByTagName('tr');
+                var select = document.querySelector('select');
+                select.addEventListener('change', function() {
+                    for (i = 1; i < tr.length; i++) {
+                        if (this.value !=0) {
+                            if (tr[i].className != this.value) {
+                                tr[i].hidden = true;
+                            }
+                            else {
+                                tr[i].hidden = false;
+                            }
+                        }
+                        else {
+                            tr[i].hidden = false;
+                        }
+                    }
+                });
+            </script>
+
+          </tbody>
+        </table>
+
+    {%endfor%}
+    <br>
+    <a href="/companies/new_report" class="btn"> Add report </a>
+
+{% endblock %}
+
+{% block scrypts %}
+
+{% endblock %}
